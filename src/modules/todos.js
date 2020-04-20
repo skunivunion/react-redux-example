@@ -5,12 +5,16 @@ const TOGGLE = 'todos/TOGGLE';  // todo를 체크하거나 체크 해제함
 const REMOVE = 'todos/REMOVE';  // todo를 제거함
 
 // 액션 생성함수 정의
+
+// type = CHANGE_INPUT, input = input 인 객체(state)를 반환하는 함수 정의
 export const changeInput = input => ({
     type: CHANGE_INPUT,
     input   // = input: input
 });
 
 let id = 3; // insert가 호출될 때마다 1씩 증가
+
+// type = INSERT, todo.text = text 인 객체(state)를 반환하는 함수 정의 
 export const insert = text => ({
     type: INSERT,
     todo: {
@@ -20,17 +24,19 @@ export const insert = text => ({
     }
 });
 
+// type = TOGGLE, id = id 인 객체(state)를 반환하는 함수 정의
 export const toggle = id => ({
     type: TOGGLE,
     id  // = id: id
 });
 
+// type = REMOVE, id = id 인 객체(state)를 반환하는 함수 정의
 export const remove = id => ({
     type: REMOVE,
     id  // = id: id
 });
 
-// todos 모듈의 초기 상태 정의
+// todos 모듈의 초기 상태 정의 : state 정의
 const initialState = {
     input: '',
     todos: [
@@ -47,22 +53,25 @@ const initialState = {
     ]
 };
 
-// todos의 리듀서 함수 정의 : todos의 상태를 바꾸는 함수
+// todos 리듀서 함수 정의 : todos의 상태를 바꾸는 함수
 function todos(state = initialState, action) {
     switch (action.type) {
         case CHANGE_INPUT:
             return {
                 ...state,
+                // input state 값 변경
                 input: action.input
             };
         case INSERT:
             return {
                 ...state,
+                // todos state에 action.todo 추가
                 todos: state.todos.concat(action.todo)
             };
         case TOGGLE:
             return {
                 ...state,
+                // todos state 중 id가 action.id 인 todo의 done 값 변경
                 todos: state.todos.map(todo =>
                     todo.id === action.id ? { ...todo, done: !todo.done } : todo
                 )
@@ -70,6 +79,7 @@ function todos(state = initialState, action) {
         case REMOVE:
             return {
                 ...state,
+                // todos state 중 id가 action.id 인 todo 삭제
                 todos: state.todos.filter(todo => todo.id !== action.id)
             };
         default:

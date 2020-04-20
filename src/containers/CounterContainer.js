@@ -13,6 +13,7 @@ import { increase, decrease } from '../modules/counter';
 const CounterContainer = ({ number, increase, decrease }) => {
   // Counter 컴포넌트에게 스토어로부터 받은 상태(객체) 값을 넘겨준다.
   return (
+    // Counter 컴포넌트로 전달
     <Counter number={number} onIncrease={increase} onDecrease={decrease} />
   );
 };
@@ -27,15 +28,17 @@ const mapStateToProps = (state) => ({
 // mapDispatchToProps에서 반환하는 객체 내부의 값들은 컴포넌트의 props로 전달된다.
 // dispatch() : 리듀서에 action을 통지
 const mapDispatchToProps = (dispatch) => ({
-  increase: () => {
-    dispatch(increase());
+  increase: () => {       // increase는
+    // increase()는 increase를 수행한 결과를 의미한다. <-- import { increase } from '../modules/counter';
+    dispatch(increase()); // 리듀서함수(counter)를 수행한다. (파라미터로 increase()가 리턴하는 값을 넘긴다.)
   },
-  decrease: () => {
-    dispatch(decrease());
+  decrease: () => {       // decrease는
+    // decrease()는 decrease를 수행한 결과를 의미한다. <-- import { decrease } from '../modules/counter';
+    dispatch(decrease()); // 리듀서함수(counter)를 수행한다. (파라미터로 decrease()가 리턴하는 값을 넘긴다.)
   },
 });
 
-// Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환 (number, increase, decrease)
+// Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 number, increase, decrease 반환
 // CounterContainer가 props로 받는다.
 export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
 

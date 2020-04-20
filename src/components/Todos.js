@@ -45,6 +45,7 @@ const Todos = ({
       </form>
       <div>
         {todos.map((todo) => (
+          // TodoItem 컴포넌트로 전달
           <TodoItem
             todo={todo}
             key={todo.id}

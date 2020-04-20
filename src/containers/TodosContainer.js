@@ -13,6 +13,7 @@ const TodosContainer = ({
     remove,
 }) => {
     return (
+        // Todos 컴포넌트로 전달
         <Todos
             input={input}
             todos={todos}
@@ -26,14 +27,14 @@ const TodosContainer = ({
 
 export default connect(
     // 비구조화 할당을 통해 todos를 분리하여 state.todos.input 대신 todos.input을 사용
-    ({ todos }) => ({
-        input: todos.input,
-        todos: todos.todos,        
+    ({ todos }) => ({   // todos는 export된 todos
+        input: todos.input, // --> state.todos.input
+        todos: todos.todos, // --> state.todos.todos
     }),
     {
-        changeInput,
-        insert,
-        toggle,
-        remove,
+        changeInput,    // --> dispatch(changeInput())
+        insert,         // --> dispatch(insert())
+        toggle,         // --> toggle(insert())
+        remove,         // --> remove(insert())
     },
-)(TodosContainer);
+)(TodosContainer);  // TodosContainer props로 받는다. (input, todos, changeInput, insert, toggle, remove)
