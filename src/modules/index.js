@@ -6,8 +6,10 @@ import todos from './todos';
 // 디렉터리 이름까지만 입력하여 불러올 수 있다.
 // ex) import rootReducer from './modues';
 
+// 리듀서를 하나로 합침
 const rootReducer = combineReducers({
-    counter, todos,
+  counter,
+  todos,
 });
 
 export default rootReducer;

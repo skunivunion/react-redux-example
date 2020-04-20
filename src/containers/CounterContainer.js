@@ -11,31 +11,35 @@ import { increase, decrease } from '../modules/counter';
 // mapDispatchToProps : 액션 생성 함수를 컴포넌트의 props로 넘겨주기 위해 사용
 
 const CounterContainer = ({ number, increase, decrease }) => {
-    // Counter 컴포넌트에게 스토어로부터 받은 상태(객체) 값을 넘겨준다.
-    return (
-        <Counter number={number} onIncrease={increase} onDecrease={decrease} />
-    );
+  // Counter 컴포넌트에게 스토어로부터 받은 상태(객체) 값을 넘겨준다.
+  return (
+    <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+  );
 };
 
+// Store가 가진 state를 어떻게 props와 연동 (필요한 것만 받으면 된다.)
 // mapStateToProps에서 반환하는 객체 내부의 값들은 컴포넌트의 props로 전달된다.
-const mapStateToProps = state => ({
-    number: state.counter.number,
+const mapStateToProps = (state) => ({
+  number: state.counter.number,
 });
 
+// Reducer에 action을 알리는 함수 dispatch를 어떻게 props 연동
 // mapDispatchToProps에서 반환하는 객체 내부의 값들은 컴포넌트의 props로 전달된다.
-const mapDispatchToProps = dispatch => ({
-    increase: () => {
-        dispatch(increase());
-    },
-    decrease: () => {
-        dispatch(decrease());        
-    },
+// dispatch() : 리듀서에 action을 통지
+const mapDispatchToProps = (dispatch) => ({
+  increase: () => {
+    dispatch(increase());
+  },
+  decrease: () => {
+    dispatch(decrease());
+  },
 });
 
-// 리덕스와 연동된 컴포넌트를 반환
+// Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환 (number, increase, decrease)
+// CounterContainer가 props로 받는다.
 export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
 
-// 1
+// 1.
 // // `increase: () => dispatch(increase()),` === `increase: () => { return dispatch(increase()) },`
 // export default connect(
 //     state => ({
@@ -47,7 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
 //     }),
 // )(CounterContainer);
 
-// 2
+// 2. import { bindActionCreators } from 'redux';
 // export default connect(
 //     state => ({
 //         number: state.counter.number,
@@ -62,7 +66,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
 //         ),
 // )(CounterContainer);
 
-// 3
+// 3.
 // export default connect(
 //     state => ({
 //         number: state.counter.number,
